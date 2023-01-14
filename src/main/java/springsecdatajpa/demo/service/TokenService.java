@@ -6,7 +6,7 @@ import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
-import springsecdatajpa.demo.entity.DTO.AppUserLoginDTO;
+import springsecdatajpa.demo.entity.AppUser;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -39,8 +39,27 @@ public class TokenService {
         return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
-    public String generateToken2(AppUserLoginDTO appUserLoginDTO) {
+    public String generateToken2(AppUser appUser) {
+        // TODO: Implement the solution from Backend One
+        System.out.println("inside Generate Token2");
+        Instant now = Instant.now();
+        String scope = appUser.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(" "));
+        System.out.println(scope.toString());
 
-        return "";
+
+
+        JwtClaimsSet claims = JwtClaimsSet.builder()
+                .issuer("self")
+                .issuedAt(now)
+                .expiresAt(now.plus(1, ChronoUnit.HOURS))
+                .subject(appUser.getUserName())
+                .claim("scope", scope)
+                .build();
+        return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
+
+
+
 }

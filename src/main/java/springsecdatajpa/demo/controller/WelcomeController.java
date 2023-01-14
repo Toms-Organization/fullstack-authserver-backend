@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("")
 public class WelcomeController {
 
-
     @GetMapping("/welcome")
     public String welcomeAll() {
+        System.out.println("Are we here in welcome endpoint??");
         return "Welcome to this Open Endpoint";
     }
+
+
 
 }
