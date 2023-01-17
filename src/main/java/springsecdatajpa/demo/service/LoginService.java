@@ -1,12 +1,14 @@
 package springsecdatajpa.demo.service;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import springsecdatajpa.demo.entity.AppUser;
 import springsecdatajpa.demo.entity.DTO.AppUserDTO;
 import springsecdatajpa.demo.entity.DTO.AppUserLoginDTO;
+import springsecdatajpa.demo.entity.DTO.CreateAppUserDTO;
 import springsecdatajpa.demo.repository.AppUserRepository;
 import springsecdatajpa.demo.util.Converter;
 import springsecdatajpa.demo.util.MapperClass;
@@ -45,6 +47,7 @@ public class LoginService {
         // matches() compares the entered password to the stored hashversion of it
         return encoder.matches(enteredPassword, appUser.getUserPassword());
     }
+
 
 
 }

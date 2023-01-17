@@ -19,13 +19,11 @@ public class TokenService {
     private final JwtEncoder encoder;
 
 
-    public TokenService(JwtEncoder encoder ) {
+    public TokenService(JwtEncoder encoder) {
         this.encoder = encoder;
     }
 
-
     public String generateToken(AppUser appUser) {
-        System.out.println("inside Generate Token2");
         Instant now = Instant.now();
         String scope = appUser.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -40,7 +38,4 @@ public class TokenService {
                 .build();
         return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
-
-
-
 }
