@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### resources Certs ###
-src/main/resources/certs
+src/main/resources/certs/*.pem
