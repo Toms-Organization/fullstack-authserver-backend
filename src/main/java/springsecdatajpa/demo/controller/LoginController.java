@@ -1,39 +1,43 @@
 package springsecdatajpa.demo.controller;
 
-import org.springframework.web.bind.annotation.*;
-import springsecdatajpa.demo.entity.AppUser;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import springsecdatajpa.demo.entity.DTO.AppUserDTO;
 import springsecdatajpa.demo.entity.DTO.AppUserLoginDTO;
+import springsecdatajpa.demo.entity.DTO.CreateAppUserDTO;
 import springsecdatajpa.demo.service.AppUserService;
 import springsecdatajpa.demo.service.LoginService;
-import springsecdatajpa.demo.service.TokenService;
-import springsecdatajpa.demo.util.MapperClass;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("")
 public class LoginController {
 
 
-    private final TokenService tokenService;
-    private final AppUserService appUserService;
     private final LoginService loginService;
-    private MapperClass mapperClass = new MapperClass();
+    private final AppUserService appUserService;
 
-    public LoginController(TokenService tokenService, AppUserService appUserService, LoginService loginService) {
-        this.tokenService = tokenService;
-        this.appUserService = appUserService;
+
+    public LoginController(LoginService loginService, AppUserService appUserService) {
         this.loginService = loginService;
+        this.appUserService = appUserService;
     }
 
-    @PostMapping("")
-    public String loginScreen(@RequestBody AppUserLoginDTO appUserLoginDTO) {
-        AppUser appUser = appUserService.checkIfValidUser(appUserLoginDTO);
-        if(appUser!=null){
-            String token = tokenService.generateToken2(appUser);
-            System.out.println("We have a good user:: "+ appUser);;
-            return token;
-        }else {
-            return "User and user password not found";
-        }
+    @PostMapping("/login")
+    public ResponseEntity<AppUserDTO> loginScreen(@RequestBody AppUserLoginDTO appUserLoginDTO) {
+        AppUserDTO appUserDTO = loginService.loginToDatabase(appUserLoginDTO);
+        return ResponseEntity.ok().body(appUserDTO);
     }
+
+
+    @PostMapping("/createuser")
+    public ResponseEntity<String> createUser(@RequestBody CreateAppUserDTO createAppUserDTO){
+        appUserService.createNewUser(createAppUserDTO);
+        return ResponseEntity.ok().body("The user was added");
+
+    }
+
 
 }

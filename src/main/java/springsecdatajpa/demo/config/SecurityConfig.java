@@ -49,7 +49,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-                .authorizeRequests().antMatchers("/welcome", "/login").permitAll().and()
+                .authorizeRequests().antMatchers("/welcome", "/login", "/createuser").permitAll().and()
                 .authorizeRequests(auth -> auth
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
