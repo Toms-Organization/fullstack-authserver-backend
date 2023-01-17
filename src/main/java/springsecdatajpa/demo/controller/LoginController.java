@@ -28,7 +28,7 @@ public class LoginController {
     public String loginScreen(@RequestBody AppUserLoginDTO appUserLoginDTO) {
         AppUser appUser = appUserService.checkIfValidUser(appUserLoginDTO);
         if(appUser!=null){
-            String token = tokenService.generateToken2(appUser);
+            String token = tokenService.generateToken(appUser);
             System.out.println("We have a good user:: "+ appUser);;
             return token;
         }else {
