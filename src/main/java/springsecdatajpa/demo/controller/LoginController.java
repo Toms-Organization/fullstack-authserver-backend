@@ -1,10 +1,7 @@
 package springsecdatajpa.demo.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springsecdatajpa.demo.entity.DTO.AppUserDTO;
 import springsecdatajpa.demo.entity.DTO.AppUserLoginDTO;
 import springsecdatajpa.demo.entity.DTO.CreateAppUserDTO;
@@ -13,6 +10,7 @@ import springsecdatajpa.demo.service.LoginService;
 
 @RestController
 @RequestMapping("")
+@CrossOrigin
 public class LoginController {
 
 
