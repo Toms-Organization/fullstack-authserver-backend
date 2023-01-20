@@ -42,14 +42,7 @@ public class SecurityConfig {
     }
 
 
-    @Bean
-    public InMemoryUserDetailsManager user(){
-        return new InMemoryUserDetailsManager(User.withUsername("tompa")
-                .password("{noop}password")
-                .authorities("read")
-                .build());
 
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
