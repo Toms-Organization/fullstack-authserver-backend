@@ -10,7 +10,7 @@ import springsecdatajpa.demo.service.LoginService;
 
 @RestController
 @RequestMapping("")
-@CrossOrigin
+@CrossOrigin(origins = "*") // @CrossOrigin(origins = "http://localhost:3000/news")
 public class LoginController {
 
 
@@ -25,13 +25,17 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<AppUserDTO> loginScreen(@RequestBody AppUserLoginDTO appUserLoginDTO) {
+
+        System.out.println(appUserLoginDTO.toString());
         AppUserDTO appUserDTO = loginService.loginToDatabase(appUserLoginDTO);
+        System.out.println("in Login...");
         return ResponseEntity.ok().body(appUserDTO);
     }
 
 
     @PostMapping("/createuser")
     public ResponseEntity<String> createUser(@RequestBody CreateAppUserDTO createAppUserDTO){
+        System.out.println("in Createuser...");
         appUserService.createNewUser(createAppUserDTO);
         return ResponseEntity.ok().body("The user was added");
 
