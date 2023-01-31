@@ -26,19 +26,33 @@ public class AppUserService {
         return appUserRepository.findAppUserByUserName(appUserName);
     }
 
-    public void createNewUser(CreateAppUserDTO createAppUserDTO) {
-        AppUser appUser = new AppUser();
-        appUser.setUserName(createAppUserDTO.getUserName());
-        appUser.setUserPassword(encodeTheGivenPassword(createAppUserDTO.getUserPassword()));
-        appUser.setEmail(createAppUserDTO.getEmail());
-        appUserRepository.save(appUser);
+    public String createNewUser(CreateAppUserDTO createAppUserDTO) {
+        AppUser appUser = checkIfUserExists(createAppUserDTO.getUserName());
+        if(appUser == null){
+            // Go ahead and create
+            appUser.setUserName(createAppUserDTO.getUserName());
+            appUser.setUserPassword(encodeTheGivenPassword(createAppUserDTO.getUserPassword()));
+            appUser.setEmail(createAppUserDTO.getEmail());
+            appUserRepository.save(appUser);
+            return "User was successfully created";
+        }else {
+            return "UserName already exists";
+        }
     }
 
     private String encodeTheGivenPassword(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
         return encoder.encode(password);
     }
+
+    private AppUser checkIfUserExists(String userName){
+        return appUserRepository.findAppUserByUserName(userName);
+
+    }
+
+
 }
+
 
 
 

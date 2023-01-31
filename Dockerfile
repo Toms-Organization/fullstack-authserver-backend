@@ -17,6 +17,8 @@ RUN mvn -f /build/pom.xml package
 
 FROM openjdk:17
 COPY --from=builder /build/target/AuthServerService-0.0.1-SNAPSHOT.jar ./
+#COPY  ./src/main/resources/certs/private.pem  ./
+# COPY  ./src/main/resources/certs/public.pem  ./
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "AuthServerService-0.0.1-SNAPSHOT.jar"]
 
