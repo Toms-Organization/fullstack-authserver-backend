@@ -10,7 +10,6 @@ import springsecdatajpa.demo.service.LoginService;
 
 @RestController
 @RequestMapping("")
-@CrossOrigin(origins = "*") // @CrossOrigin(origins = "http://localhost:3000/news")
 public class LoginController {
 
 
