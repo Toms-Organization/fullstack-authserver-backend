@@ -28,7 +28,7 @@ public class AppUserService {
 
     public String createNewUser(CreateAppUserDTO createAppUserDTO) {
         AppUser appUser = checkIfUserExists(createAppUserDTO.getUserName());
-        if(appUser == null){
+        if(appUser.getUserName() == null){
             AppUser appUser1 = new AppUser();
             appUser1.setUserName(createAppUserDTO.getUserName());
             appUser1.setUserPassword(encodeTheGivenPassword(createAppUserDTO.getUserPassword()));
@@ -37,7 +37,7 @@ public class AppUserService {
             System.out.println("We created a new user!");
             return "User was successfully created";
         }else {
-            System.out.println("DID NOT ! created a new user!");
+            System.out.println("DID NOT ! create a new user!");
             return "UserName already exists";
         }
     }
@@ -55,7 +55,7 @@ public class AppUserService {
             System.out.println("This is the user:" + appUser.getUserName() + " " + appUser.getEmail());
             return appUser;
         }catch (Exception e){
-            e.printStackTrace();
+            // e.printStackTrace();
             System.out.println("User doesnt exist");
             return new AppUser();
         }
