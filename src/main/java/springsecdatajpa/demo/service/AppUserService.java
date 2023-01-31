@@ -29,13 +29,15 @@ public class AppUserService {
     public String createNewUser(CreateAppUserDTO createAppUserDTO) {
         AppUser appUser = checkIfUserExists(createAppUserDTO.getUserName());
         if(appUser == null){
-            // Go ahead and create
-            appUser.setUserName(createAppUserDTO.getUserName());
-            appUser.setUserPassword(encodeTheGivenPassword(createAppUserDTO.getUserPassword()));
-            appUser.setEmail(createAppUserDTO.getEmail());
-            appUserRepository.save(appUser);
+            AppUser appUser1 = new AppUser();
+            appUser1.setUserName(createAppUserDTO.getUserName());
+            appUser1.setUserPassword(encodeTheGivenPassword(createAppUserDTO.getUserPassword()));
+            appUser1.setEmail(createAppUserDTO.getEmail());
+            appUserRepository.save(appUser1);
+            System.out.println("We created a new user!");
             return "User was successfully created";
         }else {
+            System.out.println("DID NOT ! created a new user!");
             return "UserName already exists";
         }
     }
@@ -46,8 +48,17 @@ public class AppUserService {
     }
 
     private AppUser checkIfUserExists(String userName){
-        return appUserRepository.findAppUserByUserName(userName);
-
+        System.out.println("The username entered is: " + userName);
+        try{
+            AppUser appUser = appUserRepository.findAppUserByUserName(userName);
+            appUser.getUserName();
+            System.out.println("This is the user:" + appUser.getUserName() + " " + appUser.getEmail());
+            return appUser;
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("User doesnt exist");
+            return new AppUser();
+        }
     }
 
 
