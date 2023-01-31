@@ -25,7 +25,6 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<AppUserDTO> loginScreen(@RequestBody AppUserLoginDTO appUserLoginDTO) {
-
         System.out.println(appUserLoginDTO.toString());
         AppUserDTO appUserDTO = loginService.loginToDatabase(appUserLoginDTO);
         System.out.println("in Login...");
@@ -34,11 +33,9 @@ public class LoginController {
 
 
     @PostMapping("/createuser")
-    public ResponseEntity<String> createUser(@RequestBody CreateAppUserDTO createAppUserDTO){
+    public String createUser(@RequestBody CreateAppUserDTO createAppUserDTO){
         System.out.println("in Createuser...");
-        appUserService.createNewUser(createAppUserDTO);
-        return ResponseEntity.ok().body("The user was added");
-
+        return appUserService.createNewUser(createAppUserDTO);
     }
 
 

@@ -26,19 +26,44 @@ public class AppUserService {
         return appUserRepository.findAppUserByUserName(appUserName);
     }
 
-    public void createNewUser(CreateAppUserDTO createAppUserDTO) {
-        AppUser appUser = new AppUser();
-        appUser.setUserName(createAppUserDTO.getUserName());
-        appUser.setUserPassword(encodeTheGivenPassword(createAppUserDTO.getUserPassword()));
-        appUser.setEmail(createAppUserDTO.getEmail());
-        appUserRepository.save(appUser);
+    public String createNewUser(CreateAppUserDTO createAppUserDTO) {
+        AppUser appUser = checkIfUserExists(createAppUserDTO.getUserName());
+        if(appUser.getUserName() == null){
+            AppUser appUser1 = new AppUser();
+            appUser1.setUserName(createAppUserDTO.getUserName());
+            appUser1.setUserPassword(encodeTheGivenPassword(createAppUserDTO.getUserPassword()));
+            appUser1.setEmail(createAppUserDTO.getEmail());
+            appUserRepository.save(appUser1);
+            System.out.println("We created a new user!");
+            return "User was successfully created";
+        }else {
+            System.out.println("DID NOT ! create a new user!");
+            return "UserName already exists";
+        }
     }
 
     private String encodeTheGivenPassword(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
         return encoder.encode(password);
     }
+
+    private AppUser checkIfUserExists(String userName){
+        System.out.println("The username entered is: " + userName);
+        try{
+            AppUser appUser = appUserRepository.findAppUserByUserName(userName);
+            appUser.getUserName();
+            System.out.println("This is the user:" + appUser.getUserName() + " " + appUser.getEmail());
+            return appUser;
+        }catch (Exception e){
+            // e.printStackTrace();
+            System.out.println("User doesnt exist");
+            return new AppUser();
+        }
+    }
+
+
 }
+
 
 
 
