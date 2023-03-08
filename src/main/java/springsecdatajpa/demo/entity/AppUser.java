@@ -14,7 +14,6 @@ import java.util.Set;
 @Table(name = "app_user")
 public class AppUser {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

@@ -1,10 +1,8 @@
 package springsecdatajpa.demo.service;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import springsecdatajpa.demo.entity.AppUser;
-import springsecdatajpa.demo.entity.DTO.AppUserLoginDTO;
 import springsecdatajpa.demo.entity.DTO.CreateAppUserDTO;
 import springsecdatajpa.demo.repository.AppUserRepository;
 
@@ -12,8 +10,6 @@ import springsecdatajpa.demo.repository.AppUserRepository;
 public class AppUserService {
 
     private final AppUserRepository appUserRepository;
-
-
     public AppUserService(AppUserRepository appUserRepository) {
         this.appUserRepository = appUserRepository;
     }
@@ -37,7 +33,7 @@ public class AppUserService {
             System.out.println("We created a new user!");
             return "User was successfully created";
         }else {
-            System.out.println("DID NOT ! create a new user!");
+            System.out.println("WE DID NOT(!) create a new user!");
             return "UserName already exists";
         }
     }
@@ -48,14 +44,12 @@ public class AppUserService {
     }
 
     private AppUser checkIfUserExists(String userName){
-        System.out.println("The username entered is: " + userName);
         try{
             AppUser appUser = appUserRepository.findAppUserByUserName(userName);
             appUser.getUserName();
             System.out.println("This is the user:" + appUser.getUserName() + " " + appUser.getEmail());
             return appUser;
         }catch (Exception e){
-            // e.printStackTrace();
             System.out.println("User doesnt exist");
             return new AppUser();
         }

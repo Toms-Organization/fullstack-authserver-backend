@@ -15,7 +15,6 @@ import javax.persistence.Table;
 @Table(name = "authorities")
 @NoArgsConstructor
 public class Authorities implements GrantedAuthority {
-
     @Id
     private int id;
     private String levelOfAuthority;

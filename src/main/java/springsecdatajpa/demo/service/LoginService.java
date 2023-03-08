@@ -1,21 +1,14 @@
 package springsecdatajpa.demo.service;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import springsecdatajpa.demo.entity.AppUser;
 import springsecdatajpa.demo.entity.DTO.AppUserDTO;
 import springsecdatajpa.demo.entity.DTO.AppUserLoginDTO;
-import springsecdatajpa.demo.entity.DTO.CreateAppUserDTO;
-import springsecdatajpa.demo.repository.AppUserRepository;
 import springsecdatajpa.demo.util.Converter;
-import springsecdatajpa.demo.util.MapperClass;
 
 @Service
 public class LoginService {
-
 
     private final AppUserService appUserService;
     private final TokenService tokenService;
@@ -26,7 +19,6 @@ public class LoginService {
         this.appUserService = appUserService;
         this.tokenService = tokenService;
     }
-
 
     public AppUserDTO loginToDatabase(AppUserLoginDTO appUserLoginDTO) {
         AppUserDTO userToReturn = new AppUserDTO();
